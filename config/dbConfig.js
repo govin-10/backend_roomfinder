@@ -1,14 +1,18 @@
-const mysql = require("mysql");
-
-//required configuration for the sql connection
+//required configuration for the sequlize connection
+require("dotenv").config();
 const dbConfig = {
-  user: "root",
-  host: "localhost",
-  password: "",
-  database: "roomfinde_db",
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  db: process.env.DATABASE,
+  dialect: "mysql",
+  port: process.env.DB_PORT,
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
 };
 
-//creating the connection
-const sqlConnection = mysql.createConnection(dbConfig);
-
-module.exports = { sqlConnection };
+module.exports = { dbConfig };
