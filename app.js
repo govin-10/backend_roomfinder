@@ -13,7 +13,9 @@ app.get("/api", (req, res) => {
 
 //importing routes
 const userRoutes = require("./routes/userRoute");
+const otpRoutes = require("./routes/otpRoute");
 
 app.use("/users", userRoutes);
+app.use("/otp", otpRoutes);
 
 module.exports = app;
