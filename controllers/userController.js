@@ -125,4 +125,30 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { signUpUser, loginUser };
+const getUserById = async (req, res) => {
+  const { id } = req.body;
+
+  console.log("id", id);
+
+  const user = await users.findOne({
+    where: {
+      u_id: id,
+    },
+  });
+
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found",
+    });
+  }
+
+  const userWithoutPassword = user.toJSON();
+  delete userWithoutPassword.password;
+
+  return res.status(200).json({
+    message: "User found",
+    data: userWithoutPassword,
+  });
+};
+
+module.exports = { signUpUser, loginUser, getUserById };

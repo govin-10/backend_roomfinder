@@ -14,8 +14,10 @@ app.get("/api", (req, res) => {
 //importing routes
 const userRoutes = require("./routes/userRoute");
 const otpRoutes = require("./routes/otpRoute");
+const roomRoutes = require("./routes/roomRoute")
 
 app.use("/users", userRoutes);
 app.use("/otp", otpRoutes);
+app.use("/rooms", roomRoutes);
 
 module.exports = app;
