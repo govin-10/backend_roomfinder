@@ -1,4 +1,5 @@
-const shortid = require("short-uuid");
+// const shortid = require("short-uuid");
+import { v4 as uuid } from "uuid";
 
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define("users", {
@@ -6,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true,
       primaryKey: true,
-      defaultValue: shortid.generate(),
+      defaultValue: uuid(),
     },
     full_name: {
       type: DataTypes.STRING,
