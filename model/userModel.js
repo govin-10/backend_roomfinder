@@ -3,10 +3,11 @@ const shortid = require("short-uuid");
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define("users", {
     u_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       unique: true,
       primaryKey: true,
-      defaultValue: `${shortid.generate() + new Date().getTime()}`,
+      // defaultValue: `${shortid.generate() + new Date().getTime()}`,
     },
     full_name: {
       type: DataTypes.STRING,

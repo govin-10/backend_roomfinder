@@ -18,8 +18,7 @@
     "mysql2": "^3.11.0",
     "nodemon": "^3.1.4",
     "sequelize": "^6.37.3",
-    "short-uuid": "^5.2.0",
-    "uuid": "^11.0.3"
+    "short-uuid": "^5.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
