@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const { users } = require("../model/index");
+const { users, refreshTokenTable } = require("../model/index");
 
 const generateToken = require("../utils/generateJWT");
 const calculateAge = require("../utils/ageCalculator");
@@ -69,12 +69,15 @@ const signUpUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { phone, password } = req.body;
+  console.log(phone, password);
 
   const IsExistingUser = await users.findOne({
     where: {
       phone,
     },
   });
+
+  console.log("isExistingUser", IsExistingUser);
 
   if (!IsExistingUser) {
     return res.status(400).json({
@@ -94,7 +97,7 @@ const loginUser = async (req, res) => {
   }
 
   const payload = {
-    id: IsExistingUser.id,
+    id: IsExistingUser.u_id,
     email: IsExistingUser.email,
     phone: IsExistingUser.phone,
   };
@@ -103,7 +106,7 @@ const loginUser = async (req, res) => {
 
   if (accessToken && refreshToken) {
     const user = {
-      id: IsExistingUser.id,
+      id: IsExistingUser.u_id,
       full_name: IsExistingUser.full_name,
       dob: new Date(IsExistingUser.dob).toDateString(),
       email: IsExistingUser.email,
@@ -116,6 +119,13 @@ const loginUser = async (req, res) => {
       },
       role: IsExistingUser.role,
     };
+
+    refreshTokenTable.create({
+      u_id: IsExistingUser.u_id,
+      rt_token: refreshToken,
+      rt_expiry: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    });
+
     return res.status(200).json({
       message: "Login successful",
       accessToken,
