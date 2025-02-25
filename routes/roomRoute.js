@@ -8,9 +8,11 @@ const uploadImages = require("../middlewares/cloudinaryUpload");
 const { verifyAccessJWT } = require("../middlewares/jwtVerification");
 
 //the post request for signup
-router
-  .route("/createroom")
-  .post(verifyAccessJWT, multerConfig, uploadImages, createRoom);
+router.route("/createroom").post(
+  verifyAccessJWT,
+  // multerConfig, uploadImages,
+  createRoom
+);
 router.route("/getrooms").get(getRooms);
 
 module.exports = router;

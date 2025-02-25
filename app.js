@@ -1,6 +1,13 @@
 const express = require("express");
 
 const app = express();
+app.use(express.static("public"));
+
+const swaggerUi = require("swagger-ui-express");
+
+const swaggerUrl =
+  "https://backend-roomfinder-api.onrender.com" ||
+  "http://localhost:3000/" + "swagger.yaml";
 
 //regular middlewares
 app.use(express.json({ limit: "20kb" }));
@@ -21,5 +28,7 @@ app.use("/users", userRoutes);
 app.use("/otp", otpRoutes);
 app.use("/rooms", roomRoutes);
 app.use("/recommend", recommendRoutes);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(null, { swaggerUrl }));
 
 module.exports = app;

@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     availableFrom: {
       type: DataTypes.DATE,
-      defaultValue: new Date(),
+      // defaultValue: sequelize.NOW(),
       allowNull: false,
     },
     room_status: {
