@@ -2,10 +2,15 @@ const cloudinary = require("../config/cloudinaryConfig");
 
 const uploadImages = async (req, res, next) => {
   try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({
+        message: "No files uploaded",
+      });
+    }
+
     const files = req.files.map((file) => file.path);
     const uploadedRoomImages = [];
     for (const file of files) {
-      console.log("file", file);
       const uploadImageUrl = await cloudinary.uploader.upload(file, {
         folder: "room_images",
       });

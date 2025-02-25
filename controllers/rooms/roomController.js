@@ -1,10 +1,8 @@
-const { users, roomTable } = require("../model/index");
+const { users, roomTable } = require("../../model/index");
 
 const createRoom = async (req, res) => {
   const user = req.user;
   const u_id = user.id;
-
-  console.log("req.body", req.body);
 
   const {
     title,
@@ -13,11 +11,11 @@ const createRoom = async (req, res) => {
     latitude,
     longitude,
     address,
+    room_type,
     areaSize,
     no_of_room,
     room_status,
-    availableFrom,
-    // room_image_url,
+    room_image_url,
     wifi,
     parking,
     water,
@@ -37,16 +35,6 @@ const createRoom = async (req, res) => {
     });
   }
 
-  // const splittedLocation = location.split(",");
-
-  // const updatedLocation = {
-  //   type: "Point",
-  //   coordinates: [Number(splittedLocation[0]), Number(splittedLocation[1])],
-  // };
-
-  // console.log("location", updatedLocation);
-  // return;
-
   try {
     const newRoom = await roomTable.create({
       u_id,
@@ -56,11 +44,11 @@ const createRoom = async (req, res) => {
       latitude,
       longitude,
       address,
+      room_type,
       areaSize,
       no_of_room,
       room_status,
-      availableFrom,
-      // room_image_url,
+      room_image_url,
       wifi,
       parking,
       water,
@@ -93,17 +81,17 @@ const getRooms = async (req, res) => {
 
     const parsedRooms = allRooms.map((room) => {
       const plainRoom = room.get({ plain: true });
-      return {
-        ...plainRoom,
-        location: plainRoom.location.coordinates,
-        facilities: JSON.parse(plainRoom.facilities),
-      };
+      return plainRoom;
     });
+
+    const approvedRooms = parsedRooms.filter(
+      (room) => room.admin_approval == true
+    );
 
     if (allRooms) {
       return res.status(200).json({
         message: "All Rooms fetched successfully",
-        data: parsedRooms,
+        data: approvedRooms,
       });
     } else {
       return res.status(400).json({
@@ -118,7 +106,36 @@ const getRooms = async (req, res) => {
   }
 };
 
+const getRoomById = async (req, res) => {
+  const { r_id } = req.params;
+
+  try {
+    const room = await roomTable.findOne({
+      where: {
+        r_id,
+      },
+    });
+
+    if (room) {
+      return res.status(200).json({
+        message: "Room fetched successfully",
+        data: room,
+      });
+    } else {
+      return res.status(400).json({
+        message: "Room not found",
+      });
+    }
+  } catch (error) {
+    console.log("Error in fetching room by id", error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   createRoom,
   getRooms,
+  getRoomById,
 };

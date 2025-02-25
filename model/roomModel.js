@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    room_type: {
+      type: DataTypes.ENUM("room", "flat"),
+      allowNull: false,
+    },
     latitude: {
       type: DataTypes.DOUBLE,
       allowNull: false,
@@ -47,10 +51,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    availableFrom: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
     room_status: {
       type: DataTypes.ENUM("available", "occupied", "maintenance"),
       allowNull: false,
@@ -62,10 +62,10 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    // room_image_url: {
-    //   type: DataTypes.JSON,
-    //   allowNull: true,
-    // },
+    room_image_url: {
+      type: DataTypes.JSON,
+      allowNull: true,
+    },
     wifi: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

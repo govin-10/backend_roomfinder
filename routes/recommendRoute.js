@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express();
 
-//importing signUp function from controller
 const {
   recommendRooms,
+  savePreference,
+  getPreference,
 } = require("../controllers/recommend/recommendController");
 const { verifyAccessJWT } = require("../middlewares/jwtVerification");
 
-//the post request for signup
 router.route("/rooms").post(verifyAccessJWT, recommendRooms);
-// router.route("/getrooms").get(getRooms);
+router.route("/set-preferences").post(verifyAccessJWT, savePreference);
+router.route("/get-preferences").get(verifyAccessJWT, getPreference);
 
 module.exports = router;

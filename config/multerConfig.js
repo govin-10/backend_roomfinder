@@ -3,6 +3,9 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "room_images/"); // Folder to store files temporarily
   },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
 });
 const multerConfig = multer({
   storage,
