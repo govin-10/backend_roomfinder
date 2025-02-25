@@ -27,8 +27,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    location: {
-      type: DataTypes.GEOMETRY("POINT"),
+    latitude: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+    },
+    longitude: {
+      type: DataTypes.DOUBLE,
       allowNull: false,
     },
     address: {
@@ -39,13 +43,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    no_of_room: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     availableFrom: {
       type: DataTypes.DATE,
+      defaultValue: new Date().getDate(),
       allowNull: false,
     },
     room_status: {
       type: DataTypes.ENUM("available", "occupied", "maintenance"),
       allowNull: false,
+      defaultValue: "available",
       validate: {
         isIn: {
           args: [["available", "occupied", "maintenance"]],
@@ -53,13 +63,34 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    room_image_url: {
-      type: DataTypes.JSON,
+    // room_image_url: {
+    //   type: DataTypes.JSON,
+    //   allowNull: true,
+    // },
+    wifi: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    facilities: {
-      type: DataTypes.JSON,
+    parking: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
+    },
+    water: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    disposal_charge: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    electricity: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    admin_approval: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
   });
 

@@ -26,6 +26,7 @@ db.otpTable = require("./otpModel.js")(sequelize, DataTypes);
 db.roomTable = require("./roomModel.js")(sequelize, DataTypes);
 db.paymentInfoTable = require("./paymentModel.js")(sequelize, DataTypes);
 db.refreshTokenTable = require("./refreshToken.js")(sequelize, DataTypes);
+db.preferenceTable = require("./userPreferences.js")(sequelize, DataTypes);
 
 db.sequelize.sync({ force: false }).then(() => {
   console.log("yes re-sync done");

@@ -1,33 +1,5 @@
 const { users, roomTable } = require("../model/index");
 
-const cloudinary = require("../config/cloudinaryConfig");
-
-const uploadRoomImages = async (req, res) => {
-  const files = req.body.files;
-
-  try {
-    const uploadedRoomImages = [];
-
-    for (const file of files) {
-      const uploadImageUrl = await cloudinary.uploader.upload(file, {
-        folder: "room_images",
-      });
-      console.log("uploadImageUrl", uploadImageUrl);
-      uploadedRoomImages.push(uploadImageUrl.secure_url);
-    }
-
-    return res.status(200).json({
-      message: "Room images uploaded successfully",
-      data: uploadedRoomImages,
-    });
-  } catch (error) {
-    console.log("Error in uploading room images", error);
-    return res.status(500).json({
-      message: "Internal Server Error",
-    });
-  }
-};
-
 const createRoom = async (req, res) => {
   const user = req.user;
   const u_id = user.id;
@@ -36,13 +8,18 @@ const createRoom = async (req, res) => {
     title,
     description,
     price,
-    location,
+    latitude,
+    longitude,
     address,
     areaSize,
-    availableFrom,
+    no_of_room,
     room_status,
-    room_image_url,
-    facilities,
+    // room_image_url,
+    wifi,
+    parking,
+    water,
+    disposal_charge,
+    electricity,
   } = req.body;
 
   const existingUser = await users.findOne({
@@ -57,12 +34,12 @@ const createRoom = async (req, res) => {
     });
   }
 
-  const splittedLocation = location.split(",");
+  // const splittedLocation = location.split(",");
 
-  const updatedLocation = {
-    type: "Point",
-    coordinates: [Number(splittedLocation[0]), Number(splittedLocation[1])],
-  };
+  // const updatedLocation = {
+  //   type: "Point",
+  //   coordinates: [Number(splittedLocation[0]), Number(splittedLocation[1])],
+  // };
 
   // console.log("location", updatedLocation);
   // return;
@@ -73,13 +50,18 @@ const createRoom = async (req, res) => {
       title,
       description,
       price,
-      location: updatedLocation,
+      latitude,
+      longitude,
       address,
       areaSize,
-      availableFrom,
+      no_of_room,
       room_status,
-      room_image_url,
-      facilities,
+      // room_image_url,
+      wifi,
+      parking,
+      water,
+      disposal_charge,
+      electricity,
     });
 
     if (newRoom) {
