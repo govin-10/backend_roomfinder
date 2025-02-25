@@ -49,7 +49,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     availableFrom: {
       type: DataTypes.DATE,
-      // defaultValue: sequelize.NOW(),
       allowNull: false,
     },
     room_status: {

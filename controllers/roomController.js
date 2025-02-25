@@ -4,6 +4,8 @@ const createRoom = async (req, res) => {
   const user = req.user;
   const u_id = user.id;
 
+  console.log("req.body", req.body);
+
   const {
     title,
     description,
@@ -14,6 +16,7 @@ const createRoom = async (req, res) => {
     areaSize,
     no_of_room,
     room_status,
+    availableFrom,
     // room_image_url,
     wifi,
     parking,
@@ -56,6 +59,7 @@ const createRoom = async (req, res) => {
       areaSize,
       no_of_room,
       room_status,
+      availableFrom,
       // room_image_url,
       wifi,
       parking,
