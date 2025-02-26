@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     u_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID, // Ensure this matches the data type in the users table
       allowNull: false,
       references: {
         model: "users",
@@ -94,7 +94,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Rooms.associate = (models) => {
-    Rooms.belongsTo(models.Users, { foreignKey: "u_id" });
+    Rooms.belongsTo(models.users, { foreignKey: "u_id" });
   };
 
   return Rooms;

@@ -4,7 +4,7 @@ const generateToken = (userData) => {
   const payload = userData;
 
   const accessTokenOptions = {
-    expiresIn: "1h",
+    expiresIn: "1d",
   };
 
   const refreshTokenOptions = {

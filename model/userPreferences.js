@@ -8,12 +8,13 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
       },
       u_id: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
           model: "users",
           key: "u_id",
         },
+        onDelete: "CASCADE",
       },
       up_preference: {
         type: DataTypes.STRING,
@@ -35,7 +36,6 @@ module.exports = (sequelize, DataTypes) => {
   userPreferences.associate = (models) => {
     userPreferences.belongsTo(models.users, {
       foreignKey: "u_id",
-      onDelete: "CASCADE",
     });
   };
 

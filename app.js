@@ -23,12 +23,13 @@ const userRoutes = require("./routes/userRoute");
 const otpRoutes = require("./routes/otpRoute");
 const roomRoutes = require("./routes/roomRoute");
 const recommendRoutes = require("./routes/recommendRoute");
+const bookingRoutes = require("./routes/bookingRoute");
 
 app.use("/users", userRoutes);
 app.use("/otp", otpRoutes);
 app.use("/rooms", roomRoutes);
 app.use("/recommend", recommendRoutes);
-
+app.use("/bookings", bookingRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(null, { swaggerUrl }));
 
 module.exports = app;
