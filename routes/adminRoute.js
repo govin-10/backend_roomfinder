@@ -16,6 +16,7 @@ const {
   blockUser,
   getHomeOwners,
   getRenters,
+  getAllUsers,
 } = require("../controllers/admin/adminController-users");
 const { allBookings } = require("../controllers/admin/adminController-booking");
 
@@ -30,6 +31,7 @@ router.get("/filter-rooms", verifyAccessJWT, getRooms);
 router.get("/filter-flats", verifyAccessJWT, getFlats);
 router.get("/all-bookings", verifyAccessJWT, allBookings);
 router.get("/roomkpis", verifyAccessJWT, roomKpis);
+router.get("/getallusers", verifyAccessJWT, getAllUsers);
 router.get("/gethomeOwners", verifyAccessJWT, getHomeOwners);
 router.get("/getrenters", verifyAccessJWT, getRenters);
 // router.get("/all-bookings", verifyAccessJWT, allBookings);
