@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 app.use(express.static("public"));
@@ -11,6 +12,7 @@ const swaggerUrl =
 
 //regular middlewares
 app.use(express.json({ limit: "20kb" }));
+app.use(cors());
 app.use(express.urlencoded({ extended: true, limit: "20kb" })); //This will make us able to get data from the url.
 
 //entry point
