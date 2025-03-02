@@ -86,7 +86,7 @@ const getAllUsers = async (req, res) => {
 
     if (allUsers) {
       return res.status(200).json({
-        message: "All Rooms fetched successfull",
+        message: "All users fetched successfully",
         data: allUsers,
       });
     }

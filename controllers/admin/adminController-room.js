@@ -273,7 +273,7 @@ const deleteRoom = async (req, res) => {
 
 const getFlats = async (req, res) => {
   const user = req.user;
-  const { u_id } = user;
+  const u_id = user.id;
   const existingUser = await users.findOne({
     where: {
       u_id,
@@ -322,7 +322,7 @@ const getFlats = async (req, res) => {
 
 const getRooms = async (req, res) => {
   const user = req.user;
-  const { u_id } = user;
+  const u_id = user.id;
   const existingUser = await users.findOne({
     where: {
       u_id,
