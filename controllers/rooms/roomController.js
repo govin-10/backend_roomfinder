@@ -136,7 +136,7 @@ const getRoomById = async (req, res) => {
 
 const getUserRooms = async (req, res) => {
   const user = req.user;
-  const { u_id } = user;
+  const u_id = user.id;
 
   try {
     const userRooms = await roomTable.findAll({
