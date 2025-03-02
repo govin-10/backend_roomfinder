@@ -280,7 +280,7 @@ const getFlats = async (req, res) => {
     },
   });
 
-  if (!existingUser.role !== "admin") {
+  if (!existingUser.role === "admin") {
     return res.status(403).json({
       message: "You are not authorized to view all rooms",
     });
@@ -329,7 +329,7 @@ const getRooms = async (req, res) => {
     },
   });
 
-  if (!existingUser.role !== "admin") {
+  if (!existingUser.role === "admin") {
     return res.status(403).json({
       message: "You are not authorized to view all rooms",
     });
