@@ -3,10 +3,9 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn("rooms", "room_type", {
-      type: Sequelize.ENUM("room", "flat"),
+    await queryInterface.changeColumn("rooms", "description", {
+      type: Sequelize.STRING(1000),
       allowNull: false,
-      defaultValue: "room",
     });
     /**
      * Add altering commands here.
