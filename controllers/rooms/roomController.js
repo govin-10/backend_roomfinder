@@ -134,8 +134,38 @@ const getRoomById = async (req, res) => {
   }
 };
 
+const getUserRooms = async (req, res) => {
+  const user = req.user;
+  const { u_id } = user;
+
+  try {
+    const userRooms = await roomTable.findAll({
+      where: {
+        u_id,
+      },
+    });
+
+    if (userRooms) {
+      return res.status(200).json({
+        message: "User Rooms fetched successfully",
+        data: userRooms,
+      });
+    } else {
+      return res.status(400).json({
+        message: "No rooms found",
+      });
+    }
+  } catch (error) {
+    console.log("Error in fetching user rooms", error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   createRoom,
   getRooms,
   getRoomById,
+  getUserRooms,
 };

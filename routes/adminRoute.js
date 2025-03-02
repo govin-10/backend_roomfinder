@@ -26,5 +26,6 @@ router.patch("/users/block/:u_id", verifyAccessJWT, blockUser);
 router.get("/filter-rooms", verifyAccessJWT, getRooms);
 router.get("/filter-flats", verifyAccessJWT, getFlats);
 router.get("/all-bookings", verifyAccessJWT, allBookings);
+// router.get("/all-bookings", verifyAccessJWT, allBookings);
 
 module.exports = router;

@@ -6,6 +6,7 @@ const {
   createRoom,
   getRooms,
   getRoomById,
+  getUserRooms,
 } = require("../controllers/rooms/roomController");
 const multerConfig = require("../config/multerConfig");
 const uploadImages = require("../middlewares/cloudinaryUpload");
@@ -20,5 +21,6 @@ router.route("/getrooms").get(verifyAccessJWT, getRooms);
 router.route("/get-room-details/:r_id").get(verifyAccessJWT, getRoomById);
 router.route("/search/:query").get(verifyAccessJWT, searchRooms);
 router.route("/nearby/:radius").get(verifyAccessJWT, nearbyRooms);
+router.route("/homeowner/rooms").get(verifyAccessJWT, getUserRooms);
 
 module.exports = router;
