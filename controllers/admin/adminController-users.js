@@ -84,6 +84,8 @@ const getAllUsers = async (req, res) => {
       },
     });
 
+    console.log("allUsers", allUsers);
+
     if (allUsers) {
       return res.status(200).json({
         message: "All users fetched successfully",
@@ -119,13 +121,24 @@ const blockUser = async (req, res) => {
         u_id,
       },
     });
-    await currentUser.update({
-      status: "inactive",
-    });
 
-    return res.status(200).json({
-      message: "user status updated successfully",
-    });
+    if (currentUser.status === "inactive") {
+      await currentUser.update({
+        status: "active",
+      });
+      return res.status(200).json({
+        message: "user status set to active",
+        data: currentUser,
+      });
+    } else {
+      await currentUser.update({
+        status: "inactive",
+      });
+      return res.status(200).json({
+        message: "user status set to inactive",
+        data: currentUser,
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       message: "Error in updating user status",

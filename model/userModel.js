@@ -63,6 +63,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    status: {
+      type: DataTypes.ENUM("active", "inactive"),
+      defaultValue: "active",
+      allowNull: false,
+    },
   });
   return Users;
 };

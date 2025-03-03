@@ -77,8 +77,6 @@ const loginUser = async (req, res) => {
     },
   });
 
-  console.log("isExistingUser", IsExistingUser);
-
   if (!IsExistingUser) {
     return res.status(400).json({
       message: "user doesn't exist in the system. Please signup ",
