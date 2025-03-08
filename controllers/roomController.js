@@ -135,10 +135,12 @@ const getRooms = async (req, res) => {
     //   };
     // });
 
+    // console.log("allrooms")
+
     if (allRooms) {
       return res.status(200).json({
         message: "All Rooms fetched successfully",
-        data: parsedRooms,
+        data: allRooms,
       });
     } else {
       return res.status(400).json({
