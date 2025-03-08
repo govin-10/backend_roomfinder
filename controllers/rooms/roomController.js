@@ -85,7 +85,7 @@ const getRooms = async (req, res) => {
     });
 
     const approvedRooms = parsedRooms.filter((room) => {
-      room.admin_approval == true, room.room_status == "available";
+      return room.admin_approval == true && room.room_status == "available";
     });
 
     if (allRooms) {
