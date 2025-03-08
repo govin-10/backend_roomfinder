@@ -1,0 +1,19 @@
+@startuml
+project starts the 2025-03-01
+project ends the 2025-06-30
+
+[Task 1] starts the 2025-03-01
+[Task 1] ends the 2025-03-15
+
+[Task 2] starts the 2025-03-10
+[Task 2] ends the 2025-04-05
+
+[Task 3] starts the 2025-04-01
+[Task 3] ends the 2025-04-30
+
+[Task 4] starts the 2025-05-01
+[Task 4] ends the 2025-06-15
+
+[Milestone: Phase 1 Complete] happens the 2025-04-01
+[Milestone: Final Review] happens the 2025-06-25
+@enduml

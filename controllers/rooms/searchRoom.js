@@ -114,4 +114,4 @@ const nearbyRooms = async (req, res) => {
   return res.status(200).json({ rooms: filteredRooms });
 };
 
-module.exports = { searchRooms, nearbyRooms };
+module.exports = { searchRooms, nearbyRooms, haversineDistance };
