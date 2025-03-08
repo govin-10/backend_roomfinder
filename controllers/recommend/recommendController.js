@@ -156,7 +156,7 @@ const recommendRooms = async (req, res) => {
     { wifi, electricity, parking, water, disposal_charge }
   );
 
-  const roomScores = allRooms.map((room) => {
+  const recommendedRooms = allRooms.map((room) => {
     const roomVector = vectorizer.transform(
       room.description,
       min_price,
@@ -171,49 +171,9 @@ const recommendRooms = async (req, res) => {
     };
   });
 
-  // Step 1: Filter rooms with similarity score ≥ 0.5
-  const threshold = 0.5;
-  let highSimilarityRooms = roomScores.filter(
-    (room) => room.score >= threshold
-  );
-  highSimilarityRooms.sort((a, b) => b.score - a.score); // Sort by similarity score
-
-  // Step 2: Get nearby rooms (2km radius)
-  const userLocation = existingUser.location.coordinates;
-  const radius = 2; // 2km radius
-
-  let nearbyRooms = roomScores.filter((room) => {
-    const { latitude, longitude } = room.room_details;
-    return (
-      haversineDistance(
-        userLocation[0],
-        userLocation[1],
-        latitude,
-        longitude
-      ) <= radius
-    );
-  });
-
-  nearbyRooms.sort((a, b) => b.score - a.score); // Sort nearby rooms by similarity score
-
-  // Step 3: Ensure we return exactly 5 rooms
-  let finalRooms = [];
-
-  if (highSimilarityRooms.length >= 5) {
-    // If there are 5 or more high similarity rooms, return the top 5
-    finalRooms = highSimilarityRooms.slice(0, 5);
-  } else {
-    // Otherwise, take all high similarity rooms and fill the rest with nearby rooms
-    finalRooms = [...highSimilarityRooms];
-
-    // Add nearby rooms until we have 5 recommendations
-    for (let room of nearbyRooms) {
-      if (finalRooms.length >= 5) break;
-      if (!finalRooms.some((r) => r.room_id === room.room_id)) {
-        finalRooms.push(room);
-      }
-    }
-  }
+  const finalRooms = recommendedRooms
+    .slice(0, 5)
+    .sort((a, b) => b.score - a.score);
 
   return res.status(200).json(finalRooms);
 };
