@@ -1,6 +1,7 @@
 const { users, roomTable } = require("../model/index");
 
 const cloudinary = require("../config/cloudinaryConfig");
+const { Op } = require("sequelize");
 
 const uploadRoomImages = async (req, res) => {
   const files = req.body.files;
@@ -109,38 +110,16 @@ const getRooms = async (req, res) => {
       },
     });
 
-    // const parsedRooms = allRooms.map((room) => {
-    //   return {
-    //     r_id: room.r_id,
-    //     u_id: room.u_id,
-    //     title: room.title,
-    //     description: room.description,
-    //     price: room.price,
-    //     latitude: room.latitude,
-    //     longitude: room.longitude,
-    //     address: room.address,
-    //     room_type: room.room_type,
-    //     areaSize: room.areaSize,
-    //     availableFrom: room.availableFrom,
-    //     no_of_room: room.no_of_room,
-    //     room_status: room.room_status,
-    //     room_image_url: room.room_image_url,
-    //     wifi: room.wifi,
-    //     parking: room.parking,
-    //     water: room.water,
-    //     disposal_charge: room.disposal_charge,
-    //     electricity: room.electricity,
-    //     createdAt: room.createdAt,
-    //     updatedAt: room.updatedAt,
-    //   };
-    // });
+    const availableRooms = allRooms.filter((room) => {
+      return room.room_status === "available";
+    });
 
-    // console.log("allrooms")
+    console.log("alrooms", availableRooms);
 
-    if (allRooms) {
+    if (availableRooms.length > 0) {
       return res.status(200).json({
         message: "All Rooms fetched successfully",
-        data: allRooms,
+        data: availableRooms,
       });
     } else {
       return res.status(400).json({
