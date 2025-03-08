@@ -103,12 +103,37 @@ const createRoom = async (req, res) => {
 
 const getRooms = async (req, res) => {
   try {
-    const allRooms = await roomTable.findAll();
-
-    const parsedRooms = allRooms.map((room) => {
-      const plainRoom = room.get({ plain: true });
-      return plainRoom;
+    const allRooms = await roomTable.findAll({
+      where: {
+        admin_approval: true,
+      },
     });
+
+    // const parsedRooms = allRooms.map((room) => {
+    //   return {
+    //     r_id: room.r_id,
+    //     u_id: room.u_id,
+    //     title: room.title,
+    //     description: room.description,
+    //     price: room.price,
+    //     latitude: room.latitude,
+    //     longitude: room.longitude,
+    //     address: room.address,
+    //     room_type: room.room_type,
+    //     areaSize: room.areaSize,
+    //     availableFrom: room.availableFrom,
+    //     no_of_room: room.no_of_room,
+    //     room_status: room.room_status,
+    //     room_image_url: room.room_image_url,
+    //     wifi: room.wifi,
+    //     parking: room.parking,
+    //     water: room.water,
+    //     disposal_charge: room.disposal_charge,
+    //     electricity: room.electricity,
+    //     createdAt: room.createdAt,
+    //     updatedAt: room.updatedAt,
+    //   };
+    // });
 
     if (allRooms) {
       return res.status(200).json({
