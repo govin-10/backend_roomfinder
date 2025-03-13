@@ -38,11 +38,19 @@ const allBookings = async (req, res) => {
           attributes: ["u_id", "full_name", "email", "phone"], // Select relevant fields
         });
 
+        const owner = await users.findOne({
+          where: {
+            u_id: booking.owner_id,
+          },
+          attributes: ["u_id", "full_name", "email", "phone"], // Select relevant fields
+        });
+
         return {
           booking_id: booking.b_id,
           roomDetails: room,
           requestedBy: requester,
           bookingInfo: booking,
+          roomOwner: owner,
         };
       })
     );
