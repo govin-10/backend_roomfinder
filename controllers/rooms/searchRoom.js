@@ -107,12 +107,17 @@ const nearbyRooms = async (req, res) => {
     longitude,
     radius
   );
+
+  const approvedFilteredRooms = filteredRooms.filter(
+    (room) => room.admin_approval === true
+  );
+
   if (filteredRooms.length === 0) {
     return res
       .status(404)
       .json({ message: "No rooms found within the given radius" });
   }
-  return res.status(200).json({ rooms: filteredRooms });
+  return res.status(200).json({ rooms: approvedFilteredRooms });
 };
 
 module.exports = { searchRooms, nearbyRooms, haversineDistance };

@@ -139,7 +139,11 @@ const recommendRooms = async (req, res) => {
     disposal_charge,
   } = userPreference;
 
-  const allRooms = await roomTable.findAll();
+  const allRooms = await roomTable.findAll({
+    where: {
+      admin_approval: true,
+    },
+  });
 
   const vectorizer = new CustomVectorizer();
   vectorizer.fit([
