@@ -205,6 +205,10 @@ const deleteBookingRequest = async (req, res) => {
       },
     });
 
+    await existingRoom.update({
+      room_status: "available",
+    });
+
     return res.status(200).json({
       message: "Booking request deleted successfully",
     });
