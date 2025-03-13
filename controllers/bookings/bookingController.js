@@ -176,7 +176,7 @@ const deleteBookingRequest = async (req, res) => {
 
   const existingBooking = await bookingTable.findOne({
     where: {
-      id: booking_id,
+      b_id: booking_id,
     },
   });
 
