@@ -149,7 +149,7 @@ const approveRoom = async (req, res) => {
     },
   });
 
-  if (!existingUser.role !== "admin") {
+  if (existingUser.role !== "admin") {
     return res.status(403).json({
       message: "You are not authorized to view all rooms",
     });
@@ -195,7 +195,7 @@ const rejectRoom = async (req, res) => {
     },
   });
 
-  if (!existingUser.role !== "admin") {
+  if (existingUser.role !== "admin") {
     return res.status(403).json({
       message: "You are not authorized to view all rooms",
     });
@@ -239,7 +239,7 @@ const deleteRoom = async (req, res) => {
     },
   });
 
-  if (!existingUser.role !== "homeowner") {
+  if (existingUser.role !== "homeOwner") {
     return res.status(403).json({
       message: "You are not authorized to delete this room",
     });
