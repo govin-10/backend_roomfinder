@@ -70,6 +70,10 @@ const filterRoomsByRadius = (rooms, userLat, userLon, radius) => {
       room.latitude,
       room.longitude
     );
+
+    console.log("distance", distance);
+    console.log("radius", radius);
+
     return distance <= radius; // Only keep rooms within the given radius
   });
 };
@@ -81,10 +85,15 @@ const nearbyRooms = async (req, res) => {
   const userDetails = await users.findOne({
     where: { u_id },
   });
+  console.log("userDetails", userDetails);
   const { coordinates } = userDetails.location;
   const latitude = coordinates[0];
   const longitude = coordinates[1];
   const { radius } = req.params;
+
+  console.log("latitude", latitude);
+  console.log("longitude", longitude);
+  console.log("radius", radius);
 
   // Using the Haversine formula to calculate the distance between two points
   const allRooms = await roomTable.findAll({
@@ -99,7 +108,12 @@ const nearbyRooms = async (req, res) => {
       "room_type",
       "room_image_url",
     ],
+    where: {
+      admin_approval: true,
+    },
   });
+
+  console.log("allRooms", allRooms);
 
   const filteredRooms = filterRoomsByRadius(
     allRooms,
@@ -108,16 +122,18 @@ const nearbyRooms = async (req, res) => {
     radius
   );
 
-  const approvedFilteredRooms = filteredRooms.filter(
-    (room) => room.admin_approval === true
-  );
+  console.log("filteredRooms", filteredRooms);
+
+  // const approvedFilteredRooms = filteredRooms.filter(
+  //   (room) => room.admin_approval === true
+  // );
 
   if (filteredRooms.length === 0) {
     return res
       .status(404)
       .json({ message: "No rooms found within the given radius" });
   }
-  return res.status(200).json({ rooms: approvedFilteredRooms });
+  return res.status(200).json({ rooms: filteredRooms });
 };
 
 module.exports = { searchRooms, nearbyRooms, haversineDistance };

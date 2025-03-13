@@ -134,7 +134,7 @@ const loginUser = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.user;
 
   const user = await users.findOne({
     where: {
