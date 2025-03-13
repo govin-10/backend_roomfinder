@@ -160,7 +160,7 @@ const approveRoom = async (req, res) => {
   try {
     const room = await roomTable.findOne({
       where: {
-        room_id: room_id,
+        r_id: room_id,
       },
     });
 
@@ -205,7 +205,7 @@ const rejectRoom = async (req, res) => {
   try {
     const room = await roomTable.findOne({
       where: {
-        room_id: room_id,
+        r_id: room_id,
       },
     });
 
