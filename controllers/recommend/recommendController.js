@@ -1,6 +1,5 @@
 const { users, preferenceTable, roomTable } = require("../../model");
 const { CustomVectorizer } = require("../../utils/tfIdfVectorizer");
-const { haversineDistance } = require("../rooms/searchRoom");
 
 const savePreference = async (req, res) => {
   const user = req.user;

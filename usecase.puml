@@ -5,13 +5,15 @@ actor Renter
 rectangle "System" {
   usecase "Update Preference" as UC1
   usecase "Get Recommended Rooms" as UC2
-  usecase "Search Nearby Rooms" as UC3
-  usecase "Request Booking" as UC4
-  usecase "Approve Booking" as UC5
-  usecase "Add Room" as UC6
-  usecase "Approve Room" as UC7
-  usecase "Block User" as UC8
+  usecase "Get Nearby Rooms" as UC3
+  usecase "View Room Details" as UC4
+  usecase "Request Booking" as UC5
+  usecase "Approve/Reject Booking" as UC6
+  usecase "Add Room" as UC7
+  usecase ""
+  usecase "Approve/Reject Room" as UC8
   usecase "View Statistics" as UC9
+  usecase "View All Data" as UC10
 }
 actor HomeOwner
 actor Admin
@@ -20,10 +22,11 @@ Renter -- UC1
 Renter -- UC2
 Renter -- UC3
 Renter -- UC4
-HomeOwner -- UC5
+Renter -- UC5
 HomeOwner -- UC6
-Admin -- UC7
+HomeOwner -- UC7
 Admin -- UC8
 Admin -- UC9
+Admin -- UC10
 
 @enduml

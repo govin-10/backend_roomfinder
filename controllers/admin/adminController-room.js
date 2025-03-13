@@ -336,7 +336,11 @@ const getRooms = async (req, res) => {
   }
 
   try {
-    const allRooms = await roomTable.findAll();
+    const allRooms = await roomTable.findAll({
+      where: {
+        room_type: "room",
+      },
+    });
 
     if (allRooms) {
       return res.status(200).json({
