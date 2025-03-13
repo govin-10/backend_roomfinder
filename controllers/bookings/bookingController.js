@@ -268,6 +268,7 @@ const getBookingRequests = async (req, res) => {
           booking_id: booking.b_id,
           roomDetails: room,
           requestedBy: requester,
+          bookingInfo: booking,
           // requester_id: requester.u_id,
           // requester_name: requester.name,
           // requester_email: requester.email,

@@ -95,6 +95,7 @@ const nearbyRooms = async (req, res) => {
       "latitude",
       "longitude",
       "address",
+      "room_status",
       "room_type",
       "room_image_url",
     ],
