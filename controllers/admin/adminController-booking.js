@@ -1,5 +1,4 @@
-const { where } = require("sequelize");
-const { users, bookingTable } = require("../../model");
+const { users, bookingTable, roomTable } = require("../../model");
 
 const allBookings = async (req, res) => {
   const user = req.user;
@@ -9,7 +8,7 @@ const allBookings = async (req, res) => {
     },
   });
 
-  if (!existingUser.role === "admin") {
+  if (!existingUser || existingUser.role !== "admin") {
     return res.status(403).json({
       message: "You are not authorized to view this stats",
     });
@@ -17,15 +16,40 @@ const allBookings = async (req, res) => {
 
   try {
     const bookings = await bookingTable.findAll();
+
     if (!bookings) {
       return res.status(404).json({
         message: "No bookings found",
       });
     }
-    // const parsedBookings = bookings.map((booking) => booking.toJSON());
+
+    const bookingData = await Promise.all(
+      bookings.map(async (booking) => {
+        const room = await roomTable.findOne({
+          where: {
+            r_id: booking.r_id,
+          },
+        });
+
+        const requester = await users.findOne({
+          where: {
+            u_id: booking.u_id,
+          },
+          attributes: ["u_id", "full_name", "email", "phone"], // Select relevant fields
+        });
+
+        return {
+          booking_id: booking.b_id,
+          roomDetails: room,
+          requestedBy: requester,
+          bookingInfo: booking,
+        };
+      })
+    );
+
     return res.status(200).json({
       message: "All bookings fetched successfully",
-      data: bookings,
+      data: bookingData,
     });
   } catch (error) {
     console.log("Error in fetching bookings", error);
