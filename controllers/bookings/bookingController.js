@@ -1,4 +1,5 @@
 const { users, bookingTable, roomTable } = require("../../model");
+const { Op } = require("sequelize");
 
 const requestBooking = async (req, res) => {
   const user = req.user;
@@ -132,7 +133,7 @@ const acceptBooking = async (req, res) => {
         where: {
           r_id: existingBooking.r_id,
           b_id: {
-            [Sequelize.Op.ne]: booking_id,
+            [Op.ne]: booking_id,
           },
         },
       });
