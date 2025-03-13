@@ -259,7 +259,7 @@ const getBookingRequests = async (req, res) => {
           where: {
             u_id: booking.u_id,
           },
-          attributes: ["u_id", "name", "email", "phone"], // Select relevant fields
+          attributes: ["u_id", "full_name", "email", "phone"], // Select relevant fields
         });
 
         console.log("requester", requester);
