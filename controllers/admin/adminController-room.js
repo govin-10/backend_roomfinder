@@ -142,7 +142,7 @@ const getPendingRooms = async (req, res) => {
 
 const approveRoom = async (req, res) => {
   const user = req.user;
-  const { u_id } = user;
+  const u_id = user.id;
   const existingUser = await users.findOne({
     where: {
       u_id,

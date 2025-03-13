@@ -24,6 +24,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: "CASCADE",
     },
+    owner_id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "u_id",
+      },
+      onDelete: "CASCADE",
+    },
     total_price: {
       type: DataTypes.INTEGER,
       allowNull: false,
